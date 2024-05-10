@@ -24,8 +24,7 @@ const serviceAccount = {
 
 admin.initializeApp({
     credential: admin.credential.cert(serviceAccount),
-    databaseURL: process.env.FIREBASE_DB_URL,
-    databaseURLProducts: process.env.FIREBASE_DB_URL_PRODUCTS
+    databaseURL: process.env.FIREBASE_DB_URL
 });
 
 app.get('/', (req, res) => {
@@ -33,7 +32,7 @@ app.get('/', (req, res) => {
 });
 
 app.get('/products', (req, res) => {
-    const url = admin.app().options.databaseURLProducts;
+    const url = `${admin.app().options.databaseURL}/products.json`;
     axios.get(url)
         .then(response => {
             res.send(response.data);
@@ -42,4 +41,11 @@ app.get('/products', (req, res) => {
             console.error(error, req);
             res.status(500).send('Error obteniendo los productos');
         });
+});
+
+const PORT = process.env.PORT || 3000; // Utiliza el puerto definido por la variable de entorno PORT o el puerto 3000 por defecto
+
+// Inicia el servidor y comienza a escuchar en el puerto especificado
+app.listen(PORT, () => {
+    console.log(`Servidor escuchando en el puerto http://localhost:${PORT}`);
 });

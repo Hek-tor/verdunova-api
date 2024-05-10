@@ -43,7 +43,3 @@ app.get('/products', (req, res) => {
             res.status(500).send('Error obteniendo los productos');
         });
 });
-
-app.listen(port, () => {
-    console.log(`Servidor corriendo en el puerto ${port}`);
-});

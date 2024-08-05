@@ -43,9 +43,14 @@ app.get('/products', (req, res) => {
         });
 });
 
-const PORT = process.env.PORT || 3000; // Utiliza el puerto definido por la variable de entorno PORT o el puerto 3000 por defecto
+app.post('/invoice', (req, res) => {
+    const userInvoice = req.body;
+    console.log('Datos recibidos del frontend:', userInvoice);
+    res.status(200).json({ message: 'Factura recibida con éxito', data: userInvoice });
+});
 
-// Inicia el servidor y comienza a escuchar en el puerto especificado
+const PORT = process.env.PORT || 3000;
+
 app.listen(PORT, () => {
     console.log(`Servidor escuchando en el puerto http://localhost:${PORT}`);
 });
